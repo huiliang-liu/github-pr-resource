@@ -44,11 +44,11 @@ func Get(request GetRequest, github Github, git Git, outputDir string) (*GetResp
 		if err := git.Rebase(pull.BaseRefName, pull.Tip.OID); err != nil {
 			return nil, err
 		}
-	case "merge", "":
+	case "merge":
 		if err := git.Merge(pull.Tip.OID); err != nil {
 			return nil, err
 		}
-	case "checkout":
+	case "checkout", "":
 		if err := git.Checkout(pull.HeadRefName, pull.Tip.OID); err != nil {
 			return nil, err
 		}
