@@ -97,7 +97,7 @@ Loop:
 	}
 	// If there are new versions and no previous = return just the latest
 	if len(response) != 0 && request.Version.PR == "" {
-		response = CheckResponse{response[len(response)-1]}
+		response = CheckResponse{response[0]}
 	}
 	return response, nil
 }

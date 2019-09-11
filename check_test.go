@@ -41,7 +41,7 @@ func TestCheck(t *testing.T) {
 			pullRequests: testPullRequests,
 			files:        [][]string{},
 			expected: resource.CheckResponse{
-				resource.NewVersion(testPullRequests[1]),
+				resource.NewVersion(testPullRequests[8]),
 			},
 		},
 
