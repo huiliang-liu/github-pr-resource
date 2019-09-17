@@ -93,6 +93,15 @@ type PullRequestObject struct {
 	IsCrossRepository bool
 }
 
+type CommitStatusContext struct {
+	Context string
+	State   string
+}
+
+type CommitStatus struct {
+	Contexts []CommitStatusContext
+}
+
 // CommitObject represents the GraphQL commit node.
 // https://developer.github.com/v4/object/commit/
 type CommitObject struct {
@@ -105,6 +114,7 @@ type CommitObject struct {
 			Login string
 		}
 	}
+	Status CommitStatus
 }
 
 // ChangedFileObject represents the GraphQL FilesChanged node.

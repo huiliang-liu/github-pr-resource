@@ -8,6 +8,19 @@ import (
 	"strings"
 )
 
+func CommitHasStatusFromPrResource(commit CommitObject) bool {
+	status := commit.Status.Contexts
+	if len(status) == 0 {
+		return false
+	}
+	for _, s := range status {
+		if s.Context == "concourse-ci/status" {
+			return true
+		}
+	}
+	return false
+}
+
 // Check (business logic)
 func Check(request CheckRequest, manager Github) (CheckResponse, error) {
 	var response CheckResponse
@@ -33,8 +46,8 @@ Loop:
 		if request.Source.BaseBranch != "" && p.PullRequestObject.BaseRefName != request.Source.BaseBranch {
 			continue
 		}
-		// Filter out commits that are too old.
-		if !p.Tip.CommittedDate.Time.After(request.Version.CommittedDate) {
+
+		if CommitHasStatusFromPrResource(p.Tip) {
 			continue
 		}
 
@@ -88,17 +101,16 @@ Loop:
 		response = append(response, NewVersion(p))
 	}
 
-	// Sort the commits by date
-	sort.Sort(response)
-
-	// If there are no new but an old version = return the old
-	if len(response) == 0 && request.Version.PR != "" {
-		response = append(response, request.Version)
-	}
-	// If there are new versions and no previous = return just the latest
-	if len(response) != 0 && request.Version.PR == "" {
+	if len(response) == 0 {
+		if request.Version.PR != "" {
+			response = append(response, request.Version)
+		}
+	} else {
+		// Sort the commits by date, pick oldest
+		sort.Sort(response)
 		response = CheckResponse{response[0]}
 	}
+
 	return response, nil
 }
 

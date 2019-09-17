@@ -331,6 +331,9 @@ func createTestPR(count int, baseName string, skipCI bool, isCrossRepo bool, app
 					Login: fmt.Sprintf("login%s", n),
 				},
 			},
+			Status: resource.CommitStatus{
+				Contexts: []resource.CommitStatusContext{},
+			},
 		},
 		ApprovedReviewCount: approvedCount,
 	}

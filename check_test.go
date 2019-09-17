@@ -55,7 +55,7 @@ func TestCheck(t *testing.T) {
 			pullRequests: testPullRequests,
 			files:        [][]string{},
 			expected: resource.CheckResponse{
-				resource.NewVersion(testPullRequests[1]),
+				resource.NewVersion(testPullRequests[8]),
 			},
 		},
 
@@ -69,8 +69,7 @@ func TestCheck(t *testing.T) {
 			pullRequests: testPullRequests,
 			files:        [][]string{},
 			expected: resource.CheckResponse{
-				resource.NewVersion(testPullRequests[2]),
-				resource.NewVersion(testPullRequests[1]),
+				resource.NewVersion(testPullRequests[8]),
 			},
 		},
 
@@ -89,7 +88,7 @@ func TestCheck(t *testing.T) {
 				{"terraform/modules/variables.tf", "travis.yml"},
 			},
 			expected: resource.CheckResponse{
-				resource.NewVersion(testPullRequests[2]),
+				resource.NewVersion(testPullRequests[3]),
 			},
 		},
 
@@ -108,7 +107,7 @@ func TestCheck(t *testing.T) {
 				{"terraform/modules/variables.tf", "travis.yml"},
 			},
 			expected: resource.CheckResponse{
-				resource.NewVersion(testPullRequests[2]),
+				resource.NewVersion(testPullRequests[3]),
 			},
 		},
 		{
@@ -121,7 +120,7 @@ func TestCheck(t *testing.T) {
 			version:      resource.NewVersion(testPullRequests[1]),
 			pullRequests: testPullRequests,
 			expected: resource.CheckResponse{
-				resource.NewVersion(testPullRequests[0]),
+				resource.NewVersion(testPullRequests[8]),
 			},
 		},
 		{
@@ -134,9 +133,7 @@ func TestCheck(t *testing.T) {
 			version:      resource.NewVersion(testPullRequests[5]),
 			pullRequests: testPullRequests,
 			expected: resource.CheckResponse{
-				resource.NewVersion(testPullRequests[3]),
-				resource.NewVersion(testPullRequests[2]),
-				resource.NewVersion(testPullRequests[1]),
+				resource.NewVersion(testPullRequests[8]),
 			},
 		},
 		{
